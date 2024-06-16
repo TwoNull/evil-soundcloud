@@ -1,6 +1,6 @@
 {
-  "name": "evil-soundcloud",
-  "outputfilename": "evil-soundcloud",
+  "name": "Evil Soundcloud",
+  "outputfilename": "Evil Soundcloud",
   "frontend:install": "npm install",
   "frontend:build": "npm run build",
   "frontend:dev:watcher": "npm run dev",

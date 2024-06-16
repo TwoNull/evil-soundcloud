@@ -5,6 +5,7 @@ go 1.21
 toolchain go1.21.5
 
 require (
+	github.com/bogem/id3v2/v2 v2.1.4
 	github.com/grafov/m3u8 v0.12.0
 	github.com/json-iterator/go v1.1.12
 	github.com/wailsapp/wails/v2 v2.8.2

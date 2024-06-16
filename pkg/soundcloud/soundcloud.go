@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
+	"github.com/bogem/id3v2/v2"
 	"github.com/grafov/m3u8"
 )
 
@@ -56,6 +58,32 @@ func saveTrack(track interface{}, playlist *m3u8.MediaPlaylist, outputDir string
 		if err != nil {
 			return err
 		}
+	}
+	date, err := time.Parse("2006-01-02T15:04:05Z", track.(map[string]interface{})["display_date"].(string))
+	if err != nil {
+		return err
+	}
+	tag, err := id3v2.ParseReader(f, id3v2.Options{})
+	if err != nil {
+		return err
+	}
+	picture, err := getPicture(track.(map[string]interface{})["artwork_url"].(string))
+	if err != nil {
+		return err
+	}
+	tag.SetArtist(track.(map[string]interface{})["user"].(map[string]interface{})["username"].(string))
+	tag.SetTitle(track.(map[string]interface{})["title"].(string))
+	tag.SetYear(fmt.Sprint(date.Year()))
+	tag.AddAttachedPicture(id3v2.PictureFrame{
+		Encoding:    id3v2.EncodingISO,
+		MimeType:    "image/jpeg",
+		PictureType: id3v2.PTFrontCover,
+		Description: "",
+		Picture:     picture,
+	})
+	err = tag.Save()
+	if err != nil {
+		return err
 	}
 	return nil
 }

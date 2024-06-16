@@ -4,6 +4,7 @@ import (
 	"context"
 	"evil-soundcloud/pkg/soundcloud"
 	"os"
+	"path/filepath"
 )
 
 type App struct {
@@ -21,7 +22,7 @@ func (a *App) startup(ctx context.Context) {
 	if err != nil {
 		home = ""
 	}
-	a.baseDir = home + "/Downloads"
+	a.baseDir = filepath.Join(home, "Downloads")
 }
 
 func (a *App) FetchPlaylist(url string) {

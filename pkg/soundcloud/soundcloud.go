@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/bogem/id3v2/v2"
@@ -48,7 +49,7 @@ func GetTracks(url string, outputDir string) {
 }
 
 func saveTrack(track interface{}, playlist *m3u8.MediaPlaylist, outputDir string) error {
-	f, err := os.Create(filepath.join(outputDir, track.(map[string]interface{})["title"].(string)+".mp3"))
+	f, err := os.Create(filepath.Join(outputDir, track.(map[string]interface{})["title"].(string)+".mp3"))
 	if err != nil {
 		return err
 	}
